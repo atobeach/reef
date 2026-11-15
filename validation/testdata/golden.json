@@ -1,0 +1,335 @@
+{
+    "required missing": {
+        "message": "The origin field is required.",
+        "errors": {
+            "origin": [
+                "The origin field is required."
+            ]
+        }
+    },
+    "required null": {
+        "message": "The origin field is required.",
+        "errors": {
+            "origin": [
+                "The origin field is required."
+            ]
+        }
+    },
+    "string type": {
+        "message": "The origin field must be a string.",
+        "errors": {
+            "origin": [
+                "The origin field must be a string."
+            ]
+        }
+    },
+    "max string": {
+        "message": "The q field must not be greater than 5 characters.",
+        "errors": {
+            "q": [
+                "The q field must not be greater than 5 characters."
+            ]
+        }
+    },
+    "sometimes absent passes": null,
+    "integer and min/max numeric": {
+        "message": "The adults field must not be greater than 9.",
+        "errors": {
+            "adults": [
+                "The adults field must not be greater than 9."
+            ]
+        }
+    },
+    "integer from string": {
+        "message": "The adults field must be at least 1.",
+        "errors": {
+            "adults": [
+                "The adults field must be at least 1."
+            ]
+        }
+    },
+    "integer rejects decimal string": {
+        "message": "The adults field must be an integer.",
+        "errors": {
+            "adults": [
+                "The adults field must be an integer."
+            ]
+        }
+    },
+    "non-numeric with integer rule": {
+        "message": "The adults field must be an integer.",
+        "errors": {
+            "adults": [
+                "The adults field must be an integer."
+            ]
+        }
+    },
+    "numeric min decimal": {
+        "message": "The radius field must be at least 0.1.",
+        "errors": {
+            "radius": [
+                "The radius field must be at least 0.1."
+            ]
+        }
+    },
+    "nullable null skips": null,
+    "size string": {
+        "message": "The currency field must be 3 characters.",
+        "errors": {
+            "currency": [
+                "The currency field must be 3 characters."
+            ]
+        }
+    },
+    "array max items": {
+        "message": "The child ages field must not have more than 2 items.",
+        "errors": {
+            "child_ages": [
+                "The child ages field must not have more than 2 items."
+            ]
+        }
+    },
+    "array min items": {
+        "message": "The passengers field is required.",
+        "errors": {
+            "passengers": [
+                "The passengers field is required."
+            ]
+        }
+    },
+    "array type": {
+        "message": "The child ages field must be an array.",
+        "errors": {
+            "child_ages": [
+                "The child ages field must be an array."
+            ]
+        }
+    },
+    "wildcard children": {
+        "message": "The child_ages.1 field must not be greater than 17. (and 1 more error)",
+        "errors": {
+            "child_ages.1": [
+                "The child_ages.1 field must not be greater than 17."
+            ],
+            "child_ages.2": [
+                "The child_ages.2 field must be an integer."
+            ]
+        }
+    },
+    "nested wildcard required": {
+        "message": "The passengers.0.first_name field must be at least 2 characters. (and 3 more errors)",
+        "errors": {
+            "passengers.0.first_name": [
+                "The passengers.0.first_name field must be at least 2 characters."
+            ],
+            "passengers.1.first_name": [
+                "The passengers.1.first_name field is required."
+            ],
+            "passengers.0.gender": [
+                "The selected passengers.0.gender is invalid."
+            ],
+            "passengers.1.gender": [
+                "The passengers.1.gender field is required."
+            ]
+        }
+    },
+    "custom messages with wildcard": {
+        "message": "Please enter a valid email address. (and 1 more error)",
+        "errors": {
+            "contact_email": [
+                "Please enter a valid email address."
+            ],
+            "passengers.0.first_name": [
+                "First name is required."
+            ]
+        }
+    },
+    "email valid": null,
+    "in": {
+        "message": "The selected sex is invalid.",
+        "errors": {
+            "sex": [
+                "The selected sex is invalid."
+            ]
+        }
+    },
+    "uuid": {
+        "message": "The booking id field must be a valid UUID.",
+        "errors": {
+            "booking_id": [
+                "The booking id field must be a valid UUID."
+            ]
+        }
+    },
+    "uuid valid": null,
+    "regex": {
+        "message": "The phone number field format is invalid.",
+        "errors": {
+            "phone_number": [
+                "The phone number field format is invalid."
+            ]
+        }
+    },
+    "date_format": {
+        "message": "The departure date field must match the format Y-m-d.",
+        "errors": {
+            "departure_date": [
+                "The departure date field must match the format Y-m-d."
+            ]
+        }
+    },
+    "date_format dmy": {
+        "message": "The birth date field must match the format d/m/Y.",
+        "errors": {
+            "birth_date": [
+                "The birth date field must match the format d/m/Y."
+            ]
+        }
+    },
+    "after field": {
+        "message": "The inbound date field must be a date after outbound date.",
+        "errors": {
+            "inbound_date": [
+                "The inbound date field must be a date after outbound date."
+            ]
+        }
+    },
+    "after_or_equal field": {
+        "message": "The return date field must be a date after or equal to departure date.",
+        "errors": {
+            "return_date": [
+                "The return date field must be a date after or equal to departure date."
+            ]
+        }
+    },
+    "after_or_equal equal passes": null,
+    "required_with": {
+        "message": "The airport latitude field is required when airport longitude is present.",
+        "errors": {
+            "airport_latitude": [
+                "The airport latitude field is required when airport longitude is present."
+            ]
+        }
+    },
+    "timezone": {
+        "message": "The timezone field must be a valid timezone.",
+        "errors": {
+            "timezone": [
+                "The timezone field must be a valid timezone."
+            ]
+        }
+    },
+    "timezone valid": null,
+    "array keys": {
+        "message": "The departure times field must be an array. (and 1 more error)",
+        "errors": {
+            "departure_times": [
+                "The departure times field must be an array."
+            ],
+            "departure_times.outbound": [
+                "The selected departure times.outbound is invalid."
+            ]
+        }
+    },
+    "boolean": {
+        "message": "The flag field must be true or false.",
+        "errors": {
+            "flag": [
+                "The flag field must be true or false."
+            ]
+        }
+    },
+    "bail stops": {
+        "message": "The q field must be an integer.",
+        "errors": {
+            "q": [
+                "The q field must be an integer."
+            ]
+        }
+    },
+    "no bail reports all": {
+        "message": "The q field must be at least 5 characters. (and 1 more error)",
+        "errors": {
+            "q": [
+                "The q field must be at least 5 characters.",
+                "The selected q is invalid."
+            ]
+        }
+    },
+    "required stops further rules": {
+        "message": "The q field is required.",
+        "errors": {
+            "q": [
+                "The q field is required."
+            ]
+        }
+    },
+    "summary with many errors": {
+        "message": "The origin field is required. (and 2 more errors)",
+        "errors": {
+            "origin": [
+                "The origin field is required."
+            ],
+            "destination": [
+                "The destination field is required."
+            ],
+            "adults": [
+                "The adults field must be an integer."
+            ]
+        }
+    },
+    "custom attribute names": {
+        "message": "The date of birth field is required.",
+        "errors": {
+            "dob": [
+                "The date of birth field is required."
+            ]
+        }
+    },
+    "max multibyte length": {
+        "message": "The name field must not be greater than 5 characters.",
+        "errors": {
+            "name": [
+                "The name field must not be greater than 5 characters."
+            ]
+        }
+    },
+    "max numeric string with numeric rule": {
+        "message": "The price field must be at least 1.",
+        "errors": {
+            "price": [
+                "The price field must be at least 1."
+            ]
+        }
+    },
+    "timezone backward alias rejected": {
+        "message": "The timezone field must be a valid timezone.",
+        "errors": {
+            "timezone": [
+                "The timezone field must be a valid timezone."
+            ]
+        }
+    },
+    "dotted non-wildcard attribute display": {
+        "message": "The selected departure times.outbound is invalid.",
+        "errors": {
+            "departure_times.outbound": [
+                "The selected departure times.outbound is invalid."
+            ]
+        }
+    },
+    "camelCase nested attribute": {
+        "message": "The trip details.booking id field is required. (and 2 more errors)",
+        "errors": {
+            "tripDetails.booking_id": [
+                "The trip details.booking id field is required."
+            ],
+            "tripDetails.timezone": [
+                "The trip details.timezone field must not be greater than 64 characters."
+            ],
+            "seatId": [
+                "The seat id field must not be greater than 3 characters."
+            ]
+        }
+    }
+}

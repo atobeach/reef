@@ -1,0 +1,38 @@
+{
+    "key": "golden-key",
+    "secret": "golden-secret",
+    "app_id": "424242",
+    "requests": [
+        {
+            "method": "POST",
+            "path": "/apps/424242/events",
+            "query": {
+                "auth_key": "golden-key",
+                "auth_timestamp": "1792508022",
+                "auth_version": "1.0",
+                "body_md5": "ce1f613e96e41e352d92a24ab6e0ac0d",
+                "auth_signature": "0f2fbf3f6f64943ec0e1a710f40fb3ad18450334abca305ae4a7cf18d6ccf5b6"
+            },
+            "body": "{\"name\":\"booking.hold-expiring\",\"data\":\"{\\\"booking_id\\\":\\\"9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d\\\",\\\"expires_at\\\":\\\"2026-10-20T12:34:00.000000Z\\\",\\\"minutes_remaining\\\":5}\",\"channel\":\"bookings.9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d\"}"
+        },
+        {
+            "method": "POST",
+            "path": "/apps/424242/events",
+            "query": {
+                "auth_key": "golden-key",
+                "auth_timestamp": "1792508022",
+                "auth_version": "1.0",
+                "body_md5": "9bfcda5b6a2cc1ebd653568772c2fc7d",
+                "auth_signature": "3898582591b4557718dcd5f59ceb042a5c7ee3ef062e493daa62fe99a852f33a"
+            },
+            "body": "{\"name\":\"golden.encoding\",\"data\":\"{\\\"url\\\":\\\"https:\\\\\\/\\\\\\/example.com\\\\\\/a\\\\\\/b\\\",\\\"name\\\":\\\"Caf\\\\u00e9 \\\\u2615 \\\\ud83d\\\\ude00\\\",\\\"html\\\":\\\"<b>&amp;<\\\\\\/b>\\\",\\\"n\\\":1.5,\\\"none\\\":null}\",\"channels\":[\"bookings.a\",\"bookings.b\"]}"
+        }
+    ],
+    "channel_auth": {
+        "channel": "private-App.Models.User.42",
+        "socket_id": "1234.5678",
+        "response": {
+            "auth": "golden-key:6c759ee49e804fff0d43f12eb3fe7fdbd3022cd9546c66355b1973687958e32f"
+        }
+    }
+}

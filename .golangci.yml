@@ -1,0 +1,193 @@
+version: "2"
+
+run:
+  timeout: 10m
+
+linters:
+  default: none
+  enable:
+    # Correctness.
+    - errcheck
+    - govet
+    - staticcheck
+    - ineffassign
+    - unused
+    - errorlint
+    - nilerr
+    - bodyclose
+    - noctx
+    - wastedassign
+    - copyloopvar
+    # Readability and idiom.
+    - revive
+    - gocritic
+    - unconvert
+    - unparam
+    - intrange
+    - perfsprint
+    - usestdlibvars
+    - dupword
+    - nakedret
+    - gocyclo
+    - dupl
+    - funlen
+    - exhaustive
+    - errname
+    - predeclared
+    - makezero
+    - mirror
+    - musttag
+    - recvcheck
+    - contextcheck
+    - fatcontext
+    - nolintlint
+    - thelper
+    - depguard
+    - forbidigo
+    - sloglint
+    # Security.
+    - gosec
+  settings:
+    funlen:
+      # Functions over ~60 lines get split along their real steps.
+      lines: 60
+      statements: 40
+      ignore-comments: true
+    exhaustive:
+      default-signifies-exhaustive: true
+    nolintlint:
+      require-explanation: true
+      require-specific: true
+    forbidigo:
+      forbid:
+        # The time is the clock the context carries, which FreezeTime and
+        # Travel move for one test only.
+        - pattern: ^time\.Now$
+          msg: read the app clock with clock.Now(ctx)
+        # A test sends its request the way a client would and asserts on the
+        # answer it reads back, never on what a recorder holds.
+        - pattern: ^httptest\.(NewRecorder|ResponseRecorder)$
+          msg: send the request through testkit's Client
+    sloglint:
+      # A log line is a fixed message with key-value attributes, so it can be
+      # searched by message and filtered by field; a function holding a ctx
+      # logs with it.
+      kv-only: true
+      static-msg: true
+      context: scope
+    thelper:
+      test:
+        name: false
+      tb:
+        name: false
+      benchmark:
+        name: false
+      fuzz:
+        name: false
+    gosec:
+      excludes:
+        # md5/sha1 build cache keys, fingerprints and the session guard's
+        # name — never a password or a signature.
+        - G401
+        - G501
+        - G505
+        # Paths come from config and CLI flags, never from a request.
+        - G304
+    depguard:
+      rules:
+        # The ORM and the router never link the console: their commands live
+        # in dbcmd and webcmd. depguard sees only direct imports, so the list
+        # names every reef package that links the console itself (by prefix:
+        # mail and queue cover mailtest and queuetest); a new one joins it.
+        reef-libraries:
+          list-mode: lax
+          files: ["**/db/*.go", "**/web/*.go", "!$test"]
+          deny:
+            - pkg: github.com/atobeach/reef/console
+              desc: a library's console command lives in its cmd subpackage
+            - pkg: github.com/atobeach/reef/db/dbcmd
+              desc: links the console, which the ORM and the router never do
+            - pkg: github.com/atobeach/reef/web/webcmd
+              desc: links the console, which the ORM and the router never do
+            - pkg: github.com/atobeach/reef/mail
+              desc: links the console, which the ORM and the router never do
+            - pkg: github.com/atobeach/reef/queue
+              desc: links the console, which the ORM and the router never do
+            - pkg: github.com/atobeach/reef/realtime
+              desc: links the console, which the ORM and the router never do
+            - pkg: github.com/atobeach/reef/schedule
+              desc: links the console, which the ORM and the router never do
+            - pkg: github.com/atobeach/reef/migration
+              desc: links the console, which the ORM and the router never do
+            - pkg: github.com/atobeach/reef/testkit
+              desc: links the console, which the ORM and the router never do
+            - pkg: github.com/atobeach/reef/broadcasting/broadcastingtest
+              desc: links the console, which the ORM and the router never do
+            - pkg: github.com/atobeach/reef/events/eventstest
+              desc: links the console, which the ORM and the router never do
+            - pkg: github.com/atobeach/reef/httpclient/httpclienttest
+              desc: links the console, which the ORM and the router never do
+    gocyclo:
+      min-complexity: 25
+    dupl:
+      threshold: 150
+    errcheck:
+      exclude-functions:
+        # Best-effort cleanup whose failure has nowhere useful to go.
+        - (io.Closer).Close
+        - (*database/sql.Rows).Close
+    revive:
+      rules:
+        - name: exported
+        - name: package-comments
+        - name: var-naming
+        - name: receiver-naming
+        - name: error-strings
+        - name: error-naming
+        - name: indent-error-flow
+        - name: early-return
+        - name: superfluous-else
+        - name: unnecessary-stmt
+        - name: redefines-builtin-id
+        - name: context-as-argument
+          arguments:
+            # Test helpers take the testing handle first, as Go's own do.
+            - allowTypesBefore: "*testing.T,testing.TB"
+        - name: unused-parameter
+        - name: unexported-return
+    gocritic:
+      enabled-tags: [diagnostic, style]
+      disabled-checks:
+        # Table-test and option-struct style reads better by value here.
+        - paramTypeCombine
+        - commentedOutCode
+  exclusions:
+    rules:
+      # Fixtures and test doubles repeat themselves on purpose.
+      - path: _test\.go
+        linters: [dupl, gocyclo, unparam, funlen, gosec]
+      # The clock reads the wall clock, a test may, and so does measuring
+      # elapsed time (`started := time.Now()`, then time.Since).
+      - path: ^clock/|_test\.go$
+        linters: [forbidigo]
+        text: time\.Now
+      # testkit's Client is the one place a kernel's answer is recorded.
+      - path: ^testkit/client\.go$
+        linters: [forbidigo]
+        text: httptest
+      - source: started\b.*time\.Now\(\)
+        linters: [forbidigo]
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
+    - gofumpt
+  settings:
+    goimports:
+      # reef's own packages, grouped after third-party imports.
+      local-prefixes: [github.com/atobeach/reef]
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0

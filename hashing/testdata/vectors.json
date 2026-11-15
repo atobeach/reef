@@ -1,0 +1,28 @@
+{
+    "hashes": [
+        {
+            "password": "password123",
+            "hash": "$2y$04$Yf4q6ZNT2.4eiw3sVrHYZe5dVoR8iMrY0iZKXWi4UBYN05wW2/x1S"
+        },
+        {
+            "password": "correct horse battery staple",
+            "hash": "$2y$04$N56hESbQPubFeG6LjrCOlunvZF1hvC7MxJcICnLs9pGLkxy066sn."
+        },
+        {
+            "password": "pässwörd-ünïcode-🔑",
+            "hash": "$2y$04$zPzQtmtX4V1K0NoxieevIeaRPnJCUuzwTwL6TvRkz5dFJKD/d9.4m"
+        },
+        {
+            "password": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaIGNORED!",
+            "hash": "$2y$04$bP4TOBux2arGlVehsy1w4e3uqE0KHx8Z2BTX1kcDBBLmtE.Fwvjam"
+        },
+        {
+            "password": "",
+            "hash": "$2y$04$j.CqpxqPScXch/bN68u7ne82/lDOP0oB.1VKTxMuOBuDf7KrnoalW"
+        }
+    ],
+    "cost12": {
+        "password": "password123",
+        "hash": "$2y$12$5f9V1YOphlRz04oqJOQyK.9lyT5XWxzsHwANrd9./VCq9XQPTdu46"
+    }
+}

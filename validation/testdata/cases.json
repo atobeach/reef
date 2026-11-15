@@ -1,0 +1,601 @@
+[
+  {
+    "name": "required missing",
+    "rules": [
+      [
+        "origin",
+        "required|string|max:120"
+      ]
+    ],
+    "input": {}
+  },
+  {
+    "name": "required null",
+    "rules": [
+      [
+        "origin",
+        "required|string"
+      ]
+    ],
+    "input": {
+      "origin": null
+    }
+  },
+  {
+    "name": "string type",
+    "rules": [
+      [
+        "origin",
+        "required|string"
+      ]
+    ],
+    "input": {
+      "origin": 12
+    }
+  },
+  {
+    "name": "max string",
+    "rules": [
+      [
+        "q",
+        "sometimes|string|max:5"
+      ]
+    ],
+    "input": {
+      "q": "toolongvalue"
+    }
+  },
+  {
+    "name": "sometimes absent passes",
+    "rules": [
+      [
+        "q",
+        "sometimes|string|max:5"
+      ]
+    ],
+    "input": {}
+  },
+  {
+    "name": "integer and min/max numeric",
+    "rules": [
+      [
+        "adults",
+        "required|integer|min:1|max:9"
+      ]
+    ],
+    "input": {
+      "adults": 12
+    }
+  },
+  {
+    "name": "integer from string",
+    "rules": [
+      [
+        "adults",
+        "required|integer|min:1|max:9"
+      ]
+    ],
+    "input": {
+      "adults": "0"
+    }
+  },
+  {
+    "name": "integer rejects decimal string",
+    "rules": [
+      [
+        "adults",
+        "required|integer"
+      ]
+    ],
+    "input": {
+      "adults": "1.5"
+    }
+  },
+  {
+    "name": "non-numeric with integer rule",
+    "rules": [
+      [
+        "adults",
+        "required|integer|min:1|max:9"
+      ]
+    ],
+    "input": {
+      "adults": "abc"
+    }
+  },
+  {
+    "name": "numeric min decimal",
+    "rules": [
+      [
+        "radius",
+        "nullable|numeric|min:0.1|max:50"
+      ]
+    ],
+    "input": {
+      "radius": 0.05
+    }
+  },
+  {
+    "name": "nullable null skips",
+    "rules": [
+      [
+        "radius",
+        "nullable|numeric|min:0.1"
+      ]
+    ],
+    "input": {
+      "radius": null
+    }
+  },
+  {
+    "name": "size string",
+    "rules": [
+      [
+        "currency",
+        "sometimes|string|size:3"
+      ]
+    ],
+    "input": {
+      "currency": "EURO"
+    }
+  },
+  {
+    "name": "array max items",
+    "rules": [
+      [
+        "child_ages",
+        "nullable|array|max:2"
+      ]
+    ],
+    "input": {
+      "child_ages": [
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "name": "array min items",
+    "rules": [
+      [
+        "passengers",
+        "required|array|min:1"
+      ]
+    ],
+    "input": {
+      "passengers": []
+    }
+  },
+  {
+    "name": "array type",
+    "rules": [
+      [
+        "child_ages",
+        "nullable|array"
+      ]
+    ],
+    "input": {
+      "child_ages": "3"
+    }
+  },
+  {
+    "name": "wildcard children",
+    "rules": [
+      [
+        "child_ages",
+        "nullable|array|max:9"
+      ],
+      [
+        "child_ages.*",
+        "integer|min:0|max:17"
+      ]
+    ],
+    "input": {
+      "child_ages": [
+        3,
+        18,
+        "x"
+      ]
+    }
+  },
+  {
+    "name": "nested wildcard required",
+    "rules": [
+      [
+        "passengers",
+        "required|array|min:1"
+      ],
+      [
+        "passengers.*.first_name",
+        "required|string|min:2"
+      ],
+      [
+        "passengers.*.gender",
+        "required|string|in:Male,Female"
+      ]
+    ],
+    "input": {
+      "passengers": [
+        {
+          "first_name": "A",
+          "gender": "Other"
+        },
+        {}
+      ]
+    }
+  },
+  {
+    "name": "custom messages with wildcard",
+    "rules": [
+      [
+        "contact_email",
+        "required|string|email"
+      ],
+      [
+        "passengers.*.first_name",
+        "required|string|min:2"
+      ]
+    ],
+    "input": {
+      "contact_email": "nope",
+      "passengers": [
+        {}
+      ]
+    },
+    "messages": {
+      "contact_email.email": "Please enter a valid email address.",
+      "passengers.*.first_name.required": "First name is required."
+    }
+  },
+  {
+    "name": "email valid",
+    "rules": [
+      [
+        "contact_email",
+        "required|string|email"
+      ]
+    ],
+    "input": {
+      "contact_email": "traveller@example.com"
+    }
+  },
+  {
+    "name": "in",
+    "rules": [
+      [
+        "sex",
+        "required|in:M,F"
+      ]
+    ],
+    "input": {
+      "sex": "X"
+    }
+  },
+  {
+    "name": "uuid",
+    "rules": [
+      [
+        "booking_id",
+        "required|uuid"
+      ]
+    ],
+    "input": {
+      "booking_id": "not-a-uuid"
+    }
+  },
+  {
+    "name": "uuid valid",
+    "rules": [
+      [
+        "booking_id",
+        "required|uuid"
+      ]
+    ],
+    "input": {
+      "booking_id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"
+    }
+  },
+  {
+    "name": "regex",
+    "rules": [
+      [
+        "phone_number",
+        "required|string|regex:/^[\\d\\s]+$/"
+      ]
+    ],
+    "input": {
+      "phone_number": "12a"
+    }
+  },
+  {
+    "name": "date_format",
+    "rules": [
+      [
+        "departure_date",
+        "required|date_format:Y-m-d"
+      ]
+    ],
+    "input": {
+      "departure_date": "2026-02-30"
+    }
+  },
+  {
+    "name": "date_format dmy",
+    "rules": [
+      [
+        "birth_date",
+        "required|string|date_format:d/m/Y"
+      ]
+    ],
+    "input": {
+      "birth_date": "1990-01-01"
+    }
+  },
+  {
+    "name": "after field",
+    "rules": [
+      [
+        "outbound_date",
+        "required|date_format:Y-m-d"
+      ],
+      [
+        "inbound_date",
+        "required|date_format:Y-m-d|after:outbound_date"
+      ]
+    ],
+    "input": {
+      "outbound_date": "2026-11-10",
+      "inbound_date": "2026-11-10"
+    }
+  },
+  {
+    "name": "after_or_equal field",
+    "rules": [
+      [
+        "departure_date",
+        "required|date_format:Y-m-d"
+      ],
+      [
+        "return_date",
+        "nullable|date_format:Y-m-d|after_or_equal:departure_date"
+      ]
+    ],
+    "input": {
+      "departure_date": "2026-11-10",
+      "return_date": "2026-11-09"
+    }
+  },
+  {
+    "name": "after_or_equal equal passes",
+    "rules": [
+      [
+        "departure_date",
+        "required|date_format:Y-m-d"
+      ],
+      [
+        "return_date",
+        "nullable|date_format:Y-m-d|after_or_equal:departure_date"
+      ]
+    ],
+    "input": {
+      "departure_date": "2026-11-10",
+      "return_date": "2026-11-10"
+    }
+  },
+  {
+    "name": "required_with",
+    "rules": [
+      [
+        "airport_latitude",
+        "nullable|numeric|required_with:airport_longitude"
+      ],
+      [
+        "airport_longitude",
+        "nullable|numeric|required_with:airport_latitude"
+      ]
+    ],
+    "input": {
+      "airport_longitude": -0.4543
+    }
+  },
+  {
+    "name": "timezone",
+    "rules": [
+      [
+        "timezone",
+        "sometimes|string|max:64|timezone:all"
+      ]
+    ],
+    "input": {
+      "timezone": "Mars/Olympus"
+    }
+  },
+  {
+    "name": "timezone valid",
+    "rules": [
+      [
+        "timezone",
+        "sometimes|string|max:64|timezone:all"
+      ]
+    ],
+    "input": {
+      "timezone": "Europe/London"
+    }
+  },
+  {
+    "name": "array keys",
+    "rules": [
+      [
+        "departure_times",
+        "sometimes|array:outbound,return"
+      ],
+      [
+        "departure_times.outbound",
+        "nullable|string|in:morning,evening"
+      ]
+    ],
+    "input": {
+      "departure_times": {
+        "outbound": "noon",
+        "sideways": "x"
+      }
+    }
+  },
+  {
+    "name": "boolean",
+    "rules": [
+      [
+        "flag",
+        "required|boolean"
+      ]
+    ],
+    "input": {
+      "flag": "yes"
+    }
+  },
+  {
+    "name": "bail stops",
+    "rules": [
+      [
+        "q",
+        "bail|integer|min:5"
+      ]
+    ],
+    "input": {
+      "q": "abc"
+    }
+  },
+  {
+    "name": "no bail reports all",
+    "rules": [
+      [
+        "q",
+        "string|min:5|in:x"
+      ]
+    ],
+    "input": {
+      "q": "ab"
+    }
+  },
+  {
+    "name": "required stops further rules",
+    "rules": [
+      [
+        "q",
+        "required|string|min:5"
+      ]
+    ],
+    "input": {}
+  },
+  {
+    "name": "summary with many errors",
+    "rules": [
+      [
+        "origin",
+        "required"
+      ],
+      [
+        "destination",
+        "required"
+      ],
+      [
+        "adults",
+        "required|integer"
+      ]
+    ],
+    "input": {
+      "adults": "x"
+    }
+  },
+  {
+    "name": "custom attribute names",
+    "rules": [
+      [
+        "dob",
+        "required"
+      ]
+    ],
+    "input": {},
+    "attributes": {
+      "dob": "date of birth"
+    }
+  },
+  {
+    "name": "max multibyte length",
+    "rules": [
+      [
+        "name",
+        "string|max:5"
+      ]
+    ],
+    "input": {
+      "name": "Ŗānča!"
+    }
+  },
+  {
+    "name": "max numeric string with numeric rule",
+    "rules": [
+      [
+        "price",
+        "nullable|numeric|min:1"
+      ]
+    ],
+    "input": {
+      "price": "0.5"
+    }
+  },
+  {
+    "name": "timezone backward alias rejected",
+    "rules": [
+      [
+        "timezone",
+        "sometimes|string|max:64|timezone:all"
+      ]
+    ],
+    "input": {
+      "timezone": "Europe/Nicosia"
+    }
+  },
+  {
+    "name": "dotted non-wildcard attribute display",
+    "rules": [
+      [
+        "departure_times",
+        "sometimes|array"
+      ],
+      [
+        "departure_times.outbound",
+        "nullable|string|in:morning"
+      ]
+    ],
+    "input": {
+      "departure_times": {
+        "outbound": "noon"
+      }
+    }
+  },
+  {
+    "name": "camelCase nested attribute",
+    "rules": [
+      [
+        "tripDetails.booking_id",
+        "required|uuid"
+      ],
+      [
+        "tripDetails.timezone",
+        "nullable|string|max:64"
+      ],
+      [
+        "seatId",
+        "nullable|string|max:3"
+      ]
+    ],
+    "input": {
+      "tripDetails": {
+        "timezone": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      },
+      "seatId": "14A-window"
+    }
+  }
+]
