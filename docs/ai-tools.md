@@ -265,16 +265,16 @@ An `ai.ToolChoice` constrains which tool the model may call on a step. Its `Mode
 | `ai.ToolChoiceRequired` | `required` | The model must call some tool. |
 | `ai.ToolChoiceTool` | `tool` | The model must call the tool named by `ToolName`. |
 
-A [middleware](ai-agents.md#middleware) sets the choice for one step with `WithToolChoice`. This one makes the first step call `DestinationBriefing`:
+A [middleware](ai-agents.md#middleware) sets the choice for one step with `WithToolChoice`. This one makes the first step call `SearchFlights`:
 
 ```go
-// ForceBriefing makes the first step call DestinationBriefing.
-type ForceBriefing struct{}
+// ForceSearch makes the first step call SearchFlights.
+type ForceSearch struct{}
 
-func (ForceBriefing) Handle(ctx context.Context, step ai.PendingStep, next ai.StepHandler) (*ai.StepResponse, error) {
-	if step.IsFirstStep() && slices.Contains(step.ToolNames(), "DestinationBriefing") {
-		step = step.OnlyTools("DestinationBriefing").
-			WithToolChoice(&ai.ToolChoice{Mode: ai.ToolChoiceTool, ToolName: "DestinationBriefing"})
+func (ForceSearch) Handle(ctx context.Context, step ai.PendingStep, next ai.StepHandler) (*ai.StepResponse, error) {
+	if step.IsFirstStep() && slices.Contains(step.ToolNames(), "SearchFlights") {
+		step = step.OnlyTools("SearchFlights").
+			WithToolChoice(&ai.ToolChoice{Mode: ai.ToolChoiceTool, ToolName: "SearchFlights"})
 	}
 
 	return next(ctx, step)

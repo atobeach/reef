@@ -29,8 +29,8 @@ func TestRoundTripWritesTheEstablishedEncoding(t *testing.T) {
 			`{"url":"https:\/\/x.test\/a","t":"Caf` + bs + `u00e9 ` + bs + `u2615 ` + bs + `ud83d` + bs + `ude00 \u0001","q":"\"<>&"}`,
 		},
 		{
-			`[ {"type": "itinerary", "id": "x", "saved": false} ]`,
-			`[{"type":"itinerary","id":"x","saved":false}]`,
+			`[ {"type": "booking", "id": "x", "saved": false} ]`,
+			`[{"type":"booking","id":"x","saved":false}]`,
 		},
 	}
 
